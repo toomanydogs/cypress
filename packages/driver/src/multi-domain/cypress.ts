@@ -16,6 +16,7 @@ import { handleLogs } from './logs'
 import { handleSocketEvents } from './socket'
 import { handleSpecWindowEvents } from './spec_window_events'
 import { handleErrorEvent } from './errors'
+import { handleEvents } from './events'
 
 const specBridgeCommunicator = new SpecBridgeDomainCommunicator()
 
@@ -66,6 +67,7 @@ const setup = () => {
   handleLogs(Cypress, specBridgeCommunicator)
   handleSocketEvents(Cypress)
   handleSpecWindowEvents(cy)
+  handleEvents(Cypress, specBridgeCommunicator)
 
   cy.onBeforeAppWindowLoad = onBeforeAppWindowLoad(Cypress, cy)
 

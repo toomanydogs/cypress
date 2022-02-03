@@ -26,7 +26,7 @@ const driverToReporterEvents = 'paused session:add'.split(' ')
 const driverToLocalAndReporterEvents = 'run:start run:end'.split(' ')
 const driverToSocketEvents = 'backend:request automation:request mocha recorder:frame'.split(' ')
 const driverTestEvents = 'test:before:run:async test:after:run'.split(' ')
-const driverToLocalEvents = 'viewport:changed config stop url:changed page:loading visit:failed visit:blank'.split(' ')
+const driverToLocalEvents = 'multi:domain:viewport:changed viewport:changed config stop url:changed page:loading visit:failed visit:blank'.split(' ')
 const socketRerunEvents = 'runner:restart watched:file:changed'.split(' ')
 const socketToDriverEvents = 'net:stubbing:event request:event script:error'.split(' ')
 const localToReporterEvents = 'reporter:log:add reporter:log:state:changed reporter:log:remove'.split(' ')
@@ -514,6 +514,14 @@ export const eventManager = {
     Cypress.multiDomainCommunicator.on('expect:domain', (domain) => {
       localBus.emit('expect:domain', domain)
     })
+
+    Cypress.multiDomainCommunicator.on('viewport:changed:begin', (viewport) => {
+      const callback = () => {
+        Cypress.multiDomainCommunicator.toSpecBridge('viewport:changed:end')
+      }
+
+      Cypress.action('cy:multi:domain:viewport:changed', viewport, callback)
+    })
   },
 
   _runDriver (state) {
@@ -558,6 +566,7 @@ export const eventManager = {
       // but we want to be aggressive here
       // and force GC early and often
       Cypress.removeAllListeners()
+      Cypress.multiDomainCommunicator.removeAllListeners()
 
       localBus.emit('restart')
     })

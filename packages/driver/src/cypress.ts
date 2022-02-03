@@ -487,6 +487,9 @@ class $Cypress {
       case 'cy:viewport:changed':
         return this.emit('viewport:changed', ...args)
 
+      case 'cy:multi:domain:viewport:changed':
+        return this.emit('multi:domain:viewport:changed', ...args)
+
       case 'cy:command:start':
         return this.emit('command:start', ...args)
 
