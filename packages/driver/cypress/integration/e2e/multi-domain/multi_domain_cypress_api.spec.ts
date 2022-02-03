@@ -232,8 +232,12 @@ describe('multi-domain Cypress API', { experimentalSessionSupport: true, experim
       cy.switchToDomain('foobar.com', [conf], ([theConfig]) => {
         const multiDomainConfig = Cypress.config()
 
-        // this assertion takes a while to run... There is also some properties in the serialized config that differ, such as env: undefined
-        expect(theConfig).to.deep.include(multiDomainConfig)
+        // There is also some properties in the serialized config that differ, such as env: undefined and isInteractive in CI
+        const serializedConfigWithNonRelevantProperties = _.omit(theConfig, ['isInteractive', 'env'])
+        const currentConfigWithNonReleveantProperties = _.omit(multiDomainConfig, ['isInteractive', 'env'])
+
+        // doing a deep equal here over an include to speed up test run time
+        expect(serializedConfigWithNonRelevantProperties).to.deep.equal(currentConfigWithNonReleveantProperties)
       })
     })
 
