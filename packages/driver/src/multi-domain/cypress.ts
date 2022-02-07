@@ -80,7 +80,7 @@ const setup = (cypressConfig: Cypress.Config) => {
 
   // outlaw the use of Cypress.Cookies.* configurations, but allow other cy cookies methods to be used
   // @ts-ignore
-  Cypress.Cookies.preserveOnce = () => $errUtils.throwErrByPath('switchToDomain.Cookies.forbidden')
+  Cypress.Cookies.preserveOnce = () => $errUtils.throwErrByPath('switchToDomain.Cookies.preserveOnce.forbidden')
 
   return cy
 }

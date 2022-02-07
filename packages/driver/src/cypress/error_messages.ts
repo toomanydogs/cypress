@@ -1730,9 +1730,11 @@ export default {
       },
     },
     Cookies: {
-      forbidden: {
-        message: `\`Cypress.Cookies.preserveOnce\` use is forbidden in ${cmd('switchToDomain')}. Consider using ${cmd('session')} instead.`,
-        docsUrl: 'https://on.cypress.io/session',
+      preserveOnce: {
+        forbidden: {
+          message: `\`Cypress.Cookies.preserveOnce\` use is forbidden in ${cmd('switchToDomain')}. Consider using ${cmd('session')} instead.`,
+          docsUrl: 'https://on.cypress.io/session',
+        },
       },
     },
     callback_mixes_sync_and_async: {
