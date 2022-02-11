@@ -58,4 +58,6 @@
     "save": "devDependencies"
   },
   "schematics": "./src/schematics/collection.json"
+  
+  
 }
